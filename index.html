@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f4f6f2">
+  <meta name="description" content="気になるGitHubツールをまとめて管理する、自分だけのツールボックス。">
+  <title>GitHub Tool Box</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" aria-label="サイドバー">
+      <a class="brand" href="#main" aria-label="GitHub Tool Box ホーム">
+        <span class="brand-mark" aria-hidden="true">&lt;/&gt;</span>
+        <span class="brand-name">tool<span>box</span></span>
+      </a>
+
+      <div class="sidebar-section">
+        <p class="sidebar-label">ライブラリ</p>
+        <a class="nav-item is-active" href="#main" aria-current="page">
+          <span class="nav-icon" aria-hidden="true">▦</span>
+          すべてのツール
+          <span class="nav-count" id="sidebar-count">0</span>
+        </a>
+      </div>
+
+      <div class="sidebar-bottom">
+        <span class="status-dot" aria-hidden="true"></span>
+        <span>この端末に保存中</span>
+      </div>
+    </aside>
+
+    <main class="main-content" id="main">
+      <header class="topbar">
+        <div class="breadcrumb"><span>ライブラリ</span><span class="breadcrumb-separator">/</span><strong>すべてのツール</strong></div>
+        <button class="button button-primary top-add" id="add-tool-button" type="button">
+          <span aria-hidden="true">+</span> ツールを追加
+        </button>
+      </header>
+
+      <section class="page-heading" aria-labelledby="page-title">
+        <div>
+          <p class="eyebrow"><span class="eyebrow-line"></span> YOUR PERSONAL COLLECTION</p>
+          <h1 id="page-title">GitHub Tool Box</h1>
+          <p class="page-subtitle">気になるツールを、あとで見つけやすく。</p>
+        </div>
+        <div class="collection-stats" aria-live="polite">
+          <span class="stats-number" id="tool-count">0</span>
+          <span class="stats-label">個のツール</span>
+        </div>
+      </section>
+
+      <section class="toolbar" aria-label="ツールの検索と絞り込み">
+        <label class="search-field">
+          <span class="search-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">ツールを検索</span>
+          <input id="search-input" type="search" placeholder="名前、説明、タグで検索..." autocomplete="off">
+          <kbd>/</kbd>
+        </label>
+        <label class="sort-control">
+          <span class="visually-hidden">並び順</span>
+          <select id="sort-select">
+            <option value="newest">追加した順</option>
+            <option value="name">名前順</option>
+            <option value="oldest">古い順</option>
+          </select>
+        </label>
+      </section>
+
+      <section class="tag-filter-section" aria-label="タグで絞り込み">
+        <span class="filter-label">タグ</span>
+        <div class="tag-filters" id="tag-filters"></div>
+      </section>
+
+      <section class="results-section" aria-labelledby="results-title">
+        <div class="results-heading">
+          <h2 id="results-title">コレクション</h2>
+          <span id="results-count">0 件</span>
+        </div>
+        <div class="tool-list" id="tool-list" aria-live="polite"></div>
+      </section>
+
+      <footer class="page-footer">
+        <span>GitHub Tool Box</span>
+        <span class="footer-separator" aria-hidden="true">·</span>
+        <span>データはブラウザ内に保存されます</span>
+      </footer>
+    </main>
+  </div>
+
+  <dialog class="tool-dialog" id="tool-dialog" aria-labelledby="dialog-title">
+    <form id="tool-form" novalidate>
+      <div class="dialog-heading">
+        <div>
+          <p class="eyebrow"><span class="eyebrow-line"></span> TOOL DETAILS</p>
+          <h2 id="dialog-title">ツールを追加</h2>
+        </div>
+        <button class="icon-button dialog-close" id="close-dialog-button" type="button" aria-label="閉じる">×</button>
+      </div>
+      <input id="tool-id" type="hidden">
+      <label class="form-field">
+        <span>名前 <span class="required-mark">必須</span></span>
+        <input id="tool-name" name="name" type="text" maxlength="80" placeholder="例: raycast" required>
+        <small class="field-error" id="name-error"></small>
+      </label>
+      <label class="form-field">
+        <span>GitHub URL <span class="required-mark">必須</span></span>
+        <input id="tool-url" name="url" type="url" placeholder="https://github.com/owner/repo" required>
+        <small class="field-error" id="url-error"></small>
+      </label>
+      <label class="form-field">
+        <span>説明</span>
+        <textarea id="tool-description" name="description" rows="3" maxlength="500" placeholder="どんなツール？ 気になった理由もメモできます。"></textarea>
+      </label>
+      <label class="form-field">
+        <span>タグ</span>
+        <input id="tool-tags" name="tags" type="text" maxlength="200" placeholder="開発, デザイン, CLI">
+        <small class="field-hint">カンマ区切りで入力</small>
+      </label>
+      <div class="dialog-actions">
+        <button class="button button-quiet" id="cancel-dialog-button" type="button">キャンセル</button>
+        <button class="button button-primary" type="submit">保存する <span aria-hidden="true">→</span></button>
+      </div>
+    </form>
+  </dialog>
+</body>
+</html>
